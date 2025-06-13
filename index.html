@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Filter System (Testing Lab)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-600: #2563eb;
+      --primary-700: #1d4ed8;
+      --primary-50: #eff6ff;
+      --primary-100: #dbeafe;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --green-500: #10b981;
+      --green-600: #059669;
+      --red-500: #ef4444;
+      --red-600: #dc2626;
+      --orange-500: #f59e0b;
+      --purple-500: #8b5cf6;
+      --blue-500: #3b82f6;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff, #f0f9ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .header p {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    .filters {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .filter-group label {
+      display: block;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      background: white;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      outline: none;
+      font-family: inherit;
+    }
+
+    select:focus, input:focus {
+      border-color: var(--primary-600);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      transform: translateY(-1px);
+    }
+
+    select:hover, input:hover {
+      border-color: var(--gray-300);
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 1rem center;
+      background-repeat: no-repeat;
+      background-size: 1rem;
+      padding-right: 3rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      outline: none;
+      background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+      color: white;
+      box-shadow: var(--shadow-md);
+      margin-top: 2rem;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .products-section {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--gray-100);
+    }
+
+    .products-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .products-count {
+      background: linear-gradient(135deg, var(--primary-600), var(--purple-500));
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: white;
+      border: 2px solid var(--gray-100);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-600), var(--purple-500));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--primary-200);
+    }
+
+    .product-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .brand-badge {
+      padding: 0.375rem 0.75rem;
+      border-radius: var(--radius-md);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-apple {
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+      color: var(--gray-700);
+    }
+
+    .brand-samsung {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      color: #1d4ed8;
+    }
+
+    .brand-google {
+      background: linear-gradient(135deg, #fed7aa, #fdba74);
+      color: #ea580c;
+    }
+
+    .product-details {
+      space-y: 1rem;
+    }
+
+    .product-detail {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .product-detail:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
+    .detail-value {
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--green-500), var(--green-600));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .storage-value {
+      background: linear-gradient(135deg, var(--primary-50), var(--primary-100));
+      color: var(--primary-700);
+      padding: 0.375rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .error {
+      color: var(--red-600);
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #fef2f2;
+      padding: 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid #fecaca;
+      font-weight: 500;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--gray-500);
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    .no-results::before {
+      content: '🔍';
+      display: block;
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+      }
+
+      .filters {
+        padding: 1.5rem;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .filter-group {
+        min-width: auto;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .products-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid var(--gray-300);
+      border-radius: 50%;
+      border-top-color: var(--primary-600);
+      animation: spin 1s ease-in-out infinite;
+      margin-left: 0.5rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Micro-interactions */
+    .filter-group:focus-within label {
+      color: var(--primary-600);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📱 SmartPhone Hub</h1>
+      <p>Discover the perfect smartphone with our advanced filtering system. Compare brands, prices, and specifications effortlessly.</p>
+    </div>
+    
+    <!-- Filter System (Primary Test Target) -->
+    <div class="filters">
+      <div class="filter-group">
+        <label for="brand">🏷️ Brand</label>
+        <select id="brand">
+          <option value="">All Brands</option>
+          <option value="apple">🍎 Apple</option>
+          <option value="samsung">📱 Samsung</option>
+          <option value="google">🔍 Google</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="price-range">💰 Price Range ($)</label>
+        <select id="price-range">
+          <option value="">Any Price</option>
+          <option value="0-500">💵 $0 - $500</option>
+          <option value="500-1000">💴 $500 - $1,000</option>
+          <option value="1000-1500">💎 $1,000 - $1,500</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="storage">💾 Storage (GB)</label>
+        <input type="number" id="storage" min="64" max="1024" placeholder="e.g., 128">
+        <div id="storage-error" class="error hidden">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg>
+          Must be between 64-1024 GB
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>&nbsp;</label>
+        <button id="apply-filters">
+          🔍 Apply Filters
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="products-section">
+      <div class="products-header">
+        <h2 class="products-title">🛍️ Available Products</h2>
+        <span id="products-count" class="products-count">6 products</span>
+      </div>
+      <div class="products" id="products">
+        <!-- Dynamically filled by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Product Data (Boundary Values: Min/Max Price, Storage)
+    const products = [
+      { id: 1, brand: 'apple', name: 'iPhone 13', price: 799, storage: 128 },
+      { id: 2, brand: 'samsung', name: 'Galaxy S22', price: 999, storage: 256 },
+      { id: 3, brand: 'google', name: 'Pixel 6', price: 599, storage: 128 },
+      { id: 4, brand: 'apple', name: 'iPhone SE', price: 429, storage: 64 },
+      { id: 5, brand: 'samsung', name: 'Galaxy Z Flip', price: 1299, storage: 512 },
+      { id: 6, brand: 'apple', name: 'iPhone 14 Pro', price: 1499, storage: 1024 }
+    ];
+
+    // DOM Elements
+    const brandFilter = document.getElementById('brand');
+    const priceFilter = document.getElementById('price-range');
+    const storageInput = document.getElementById('storage');
+    const storageError = document.getElementById('storage-error');
+    const applyBtn = document.getElementById('apply-filters');
+    const productsContainer = document.getElementById('products');
+    const productsCount = document.getElementById('products-count');
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => renderProducts(products));
+
+    // --- Core Functions for Testing ---
+
+    /**
+     * Applies all filters (Black-box: Decision Table, Equivalence Partitioning)
+     * @returns {boolean} False if validation fails
+     */
+    function applyFilters() {
+      const brand = brandFilter.value;
+      const priceRange = priceFilter.value;
+      const storage = parseInt(storageInput.value);
+
+      // Validate storage input (Boundary Analysis)
+      if (storageInput.value && (storage < 64 || storage > 1024)) {
+        storageError.classList.remove('hidden');
+        return false;
+      } else {
+        storageError.classList.add('hidden');
+      }
+
+      // Filter logic
+      let filtered = [...products];
+
+      if (brand) {
+        filtered = filtered.filter(p => p.brand === brand);
+      }
+
+      if (priceRange) {
+        const [min, max] = priceRange.split('-').map(Number);
+        filtered = filtered.filter(p => p.price >= min && p.price <= max); // Bug: Doesn't handle "1000-1500" correctly
+      }
+
+      if (storage) {
+        filtered = filtered.filter(p => p.storage === storage); // Intentional: Exact match only
+      }
+
+      renderProducts(filtered);
+      return true;
+    }
+
+    /**
+     * Renders products to the DOM (White-box: Statement Coverage)
+     * @param {Array} products - Products to display
+     */
+    function renderProducts(products) {
+      // Update products count
+      productsCount.textContent = `${products.length} product${products.length !== 1 ? 's' : ''}`;
+      
+      if (products.length === 0) {
+        productsContainer.innerHTML = '<div class="no-results">No products match your filters. Try adjusting your criteria.</div>';
+        return;
+      }
+
+      let html = '';
+      products.forEach(product => {
+        const brandClass = `brand-${product.brand}`;
+        html += `
+          <div class="product-card" data-id="${product.id}">
+            <div class="product-header">
+              <h3>${product.name}</h3>
+              <span class="brand-badge ${brandClass}">${product.brand}</span>
+            </div>
+            <div class="product-details">
+              <div class="product-detail">
+                <span class="detail-label">💰 Price</span>
+                <span class="detail-value price">$${product.price.toFixed(2)}</span>
+              </div>
+              <div class="product-detail">
+                <span class="detail-label">💾 Storage</span>
+                <span class="detail-value storage-value">${product.storage}GB</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      productsContainer.innerHTML = html;
+    }
+
+    // Event Listeners
+    applyBtn.addEventListener('click', applyFilters);
+  </script>
+</body>
+</html>
