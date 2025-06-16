@@ -49,7 +49,7 @@
 
 ### Linked GitHub Issues
 
-- [#12:Storage Filter Fails for 512GB and 1024GB](https://github.com/PLP-Database-DEPT/swt-w4/issues/12)
+- [#12:Storage Filter Fails for 512GB and 1024GB](https://github.com/PLP-Database-Design/week-4-rosewanjirukabingu/issues/2)
 - [#14: Storage filter requires exact match](https://github.com/PLP-Database-DEPT/swt-w4/issues/14)
 
 ### Bug Report 1
