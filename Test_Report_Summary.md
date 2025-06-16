@@ -2,7 +2,7 @@
 
 **Project:** E-Commerce Filter System  
 **Date:** YYYY-MM-DD  
-**Group Members:** Rose Kabingu, @Member2, @Member3
+**Group Members:** [Rose Kabingu](), [Jeptum Brenda](https://github.com/bjeptum), @Member3
 
 ---
 
