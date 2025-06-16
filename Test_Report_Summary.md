@@ -49,20 +49,23 @@
 
 ### Linked GitHub Issues
 
-- [#12: Price filter does not display expected products](https://github.com/PLP-Database-DEPT/swt-w4/issues/12)
+- [#12:Storage Filter Fails for 512GB and 1024GB](https://github.com/PLP-Database-DEPT/swt-w4/issues/12)
 - [#14: Storage filter requires exact match](https://github.com/PLP-Database-DEPT/swt-w4/issues/14)
 
 ### Bug Report 1
 
-**Title**: Price filter does not display expected products
+title: Storage Filter Fails for 512GB and 1024GB
 
-**Steps to Reproduce**:
-1. Select price range "1000-1500"
-2. Click "Apply Filters"
+The storage filter does not display any products when set to 512GB or 1024GB, even though products with these capacities exist in the database.
 
-**Expected**: Should display iPhone 14 Pro ($1499)  
-**Actual**: No products displayed  
-**Severity**: Medium
+Steps to Reproduce:
+
+select the brand you want.
+Set the storage filter to "512GB" or "1024GB".
+Click "Apply Filters"
+Expected: Products with storage capacities of 512GB and 1024GB should be displayed depending on which brand is selected.
+Actual: no product is displayed.
+Severity: High
 
 ---
 
