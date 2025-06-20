@@ -1,16 +1,33 @@
 # 🧪 Testing Report for E-Commerce Filter System
 
 **Project:** E-Commerce Filter System  
-**Date:** 2025-06-16
-**Group Members:** [Rose Kabingu](), [Jeptum Brenda](https://github.com/bjeptum), [Apeh Adams](https://github.com/adamsap1)
+**Date:** 2025-06-15
+
+**Group Members:** [Rose Kabingu](https://github.com/rosewanjirukabingu), [Jeptum Brenda](https://github.com/bjeptum), [Apeh Adams](https://github.com/adamsap1)
 
 ---
 
 ## 1. Expected Behaviors
 
-1. Products should be filtered correctly based on the selected brand.
-2. Products should appear or disappear based on the selected price range.
-3. Only products with storage matching the selected value should be displayed.
+1. Brand Filter
+
+Products should be filtered correctly based on the selected brand.
+
+2. Price Range
+
+Products should appear or disappear based on the selected price range.
+
+3. Storage Filter
+
+Only products with storage matching the selected value should be displayed.
+
+4. Combined Filters
+
+When multiple filters are applied(e.g., brand = price + storage), only  products that match all selected criteria should be displayed.
+
+5. Reset/Clear Behavior
+
+Clearing or resetting filters should return the full, unfiltered product list.
 
 ---
 
@@ -24,7 +41,6 @@
 | Boundary Value Analysis  | Price, Storage               | Test 64GB, 1024GB, min/max price boundaries  |
 | Decision Table Testing   | Filter combinations          | Test combinations of brand + price + storage |
 
----
 
 ### Equivalence Partitioning Report
 1. Objective:
@@ -61,20 +77,84 @@
 | TC13 | apple   | 0–500    | empty    | P1A, P2A      | Show only iPhone SE (1 item)   | Shows 1 item iPhone SE |
 
 ---
+### Boundary Value Analysis Report
+
+1. Price Filter Boundaries
+
+  - Valid Range: $ 0 - $1500
+
+| Test Value         | Source         | Expected Behavior                      | Actual Result | 
+|--------------------|----------------|----------------------------------------------------------------|------|
+| 499                | Below 0–500 boundary | Rejected and no products shown | No products shown |
+| 500                | Lower boundary of 500–1000 | Return matching products | Galaxy S22|
+| 501                | Above 500  | Return products in 500–1000 range           | Galaxy S22     |
+| 999                | Below upper | Return products less than or equal to 999   | Galaxy S22                           |
+| 1000               | Exact boundary of 1000–1500 | Return products including price = 1000|No products shown |
+| 1001               | Above 1000 | Return matching products |Galaxy Z Flip, iPhone 14 Pro |
+| 1499               | Below max | Return items less than 1500    | Galaxy Z Flip, iPhone 14 Pro|
+| 1500               | Upper boundary | Return items priced at 1500  | Galaxy Z Flip, iPhone 14 Pro|
+| 1501               | Above max | Rejected  and display no result| No products shown |
+
+
+
+2. Storage Filter Boundaries
+ 
+ - Valid Range: between minimum 64GB  and maximum 1024GB.
+
+| Test Case | Input | Expected | Result |
+|-----------|-------|----------|--------|
+| TC1       | 64    | Accepted | Return exact matching products; only 64GB products |
+| TC2       | 63    | Rejected | Trigger Validation error: error message shown: Must be between 64–1024 GB|
+| TC3       | 65    | Accepted | Return exact matching products; none in this case|
+| TC4       | 1024  | Accepted | Return exact matching products; only 1024GB products |
+| TC5       | 1025  | Rejected | Trigger Validation error: error message shown: Must be between 64–1024 GB |
+| TC6       | 1023  | Accepted | Return exact matching products; none in this case|
+| TC7       | empty | Accepted | Return exact matching products; all products in this case |
+| TC8       | abc   | Rejected | Does not accept inputting non-numeric value |
+
+
+
+
 ### White-Box Testing Techniques
 
 | Coverage Type   | Target Function(s)     | Tool/Method | Coverage (%) |
 |-----------------|-----------------------|-------------|--------------|
-| Statement       | applyFilters()        | Manual      | 100%         |
-| Decision        | renderProducts()      | Manual      | 85%          |
+| Statement       | applyFilters()        | Jest (unit test) | 100%         |
+| Decision        | renderProducts()      | Jest (unit test) | 85%          |
 
+#### Test Execution Summary
+
+- Test Suites: 1 passed, 1 total
+- Tests: 7 passed, 7 
+- totalTime: ~0.6s
+
+### Test Case Summary
+
+**`applyFilters()` – Filter Logic**
+
+| TC  | Description                           | Covered Logic               |
+|-----|---------------------------------------|-----------------------------|
+| TC1 | No filters applied                    | All if blocks skipped     |
+| TC2 | All filters valid                     | All if branches taken     |
+| TC3 | Storage below min (e.g. 32GB)         | Validation error triggered  |
+| TC4 | Only brand selected                   | Only brand condition true   |
+| TC5 | Storage too high (e.g. 2048GB)        | Validation error triggered  |
+
+**`renderProducts()` – Rendering Logic**
+
+| TC  | Description             | Expected Behavior          |
+|-----|-------------------------|----------------------------|
+| TC6 | Products available      | Cards rendered             |
+| TC7 | No products to display  | No results shown   |
+
+**Note:** All white box test cases passed
 ---
 
 ## 3. Group Member Contributions
 
 | Member    | Black-Box Techniques Applied          | White-Box Techniques Applied         | Other Contributions                |
 |-----------|--------------------------------------|-------------------------------------|------------------------------------|
-| @Member1  | Equivalence Partitioning: tested all brand and price ranges | Statement coverage: tested all lines in applyFilters() | Wrote bug report #12               |
+| [Jeptum Brenda](https://github.com/bjeptum)  | Equivalence Partitioning: tested all brand and price ranges; Boundary Value Analysis: tested min/max storage and price; Decision Table: created filter combination matrix   |Statement coverage: tested all lines in applyFilters()  | Wrote bug report [1]()       
 | @Member2  | Boundary Value Analysis: tested min/max storage and price | Decision coverage: tested if/else in renderProducts() | Documented test cases, summary     |
 | @Member3  | Decision Table: created filter combination matrix | Reviewed code paths and edge cases | Wrote bug report #14, reflections  |
 
