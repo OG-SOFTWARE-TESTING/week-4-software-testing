@@ -154,7 +154,7 @@ Clearing or resetting filters should return the full, unfiltered product list.
 
 | Member    | Black-Box Techniques Applied          | White-Box Techniques Applied         | Other Contributions                |
 |-----------|--------------------------------------|-------------------------------------|------------------------------------|
-| [Jeptum Brenda](https://github.com/bjeptum)  | Equivalence Partitioning: tested all brand and price ranges; Boundary Value Analysis: tested min/max storage and price; Decision Table: created filter combination matrix   |Statement coverage: tested all lines in applyFilters()  | Wrote bug report [1]()       
+| [Jeptum Brenda](https://github.com/bjeptum)  | Equivalence Partitioning: tested all brand and price ranges; Boundary Value Analysis: tested min/max storage and price; Decision Table: created filter combination matrix   |Statement coverage: tested all lines in applyFilters()  | Wrote bug report [1](https://github.com/OG-SOFTWARE-TESTING/week-4-software-testing/issues/1)       
 | @Member2  | Boundary Value Analysis: tested min/max storage and price | Decision coverage: tested if/else in renderProducts() | Documented test cases, summary     |
 | @Member3  | Decision Table: created filter combination matrix | Reviewed code paths and edge cases | Wrote bug report #14, reflections  |
 
